@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { AppError } from '../utils/app-error.util';
+import logger from '../utils/log.util';
 
 export default function errorHandler(
   error: Error,
@@ -14,7 +15,7 @@ export default function errorHandler(
     });
   }
 
-  console.error(error);
+  logger.error(error);
 
   return response.status(500).json({
     status: 'error',

@@ -5,6 +5,7 @@ import cors from 'cors';
 import usersRouter from './routes/users.routes';
 import { connectToDatabase } from './database';
 import errorHandler from './middlewares/error-handler.middleware';
+import logger from './utils/log.util';
 
 class App {
   public express: express.Application;
@@ -27,12 +28,12 @@ class App {
   private handleConnectionToDatabase(): void {
     connectToDatabase()
       .then(() => {
-        console.log('📦  Connected to database!');
+        logger.info('📦  Connected to database!');
         this.startServer();
       })
       .catch((error) => {
-        console.log('❌  Error when initializing the database.');
-        console.error(error);
+        logger.error('❌  Error when initializing the database.');
+        logger.error(error);
       });
   }
 
@@ -42,7 +43,7 @@ class App {
 
   private startServer(): void {
     this.express.listen(this.port, () => {
-      console.log(`🚀  Server started on port ${this.port}.`);
+      logger.info(`🚀  Server started on port ${this.port}.`);
     });
   }
 }
