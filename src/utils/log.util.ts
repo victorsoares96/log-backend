@@ -7,8 +7,8 @@ const projectName = name;
 const logger = createLogger({
   levels: winston.config.npm.levels,
   format: format.combine(
-    format.splat(),
-    format.simple(),
+    // format.splat(),
+    // format.simple(),
     format.label({ label: projectName }),
     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
   ),

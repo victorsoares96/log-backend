@@ -9,17 +9,9 @@ export default async function watchRequests(
 ): Promise<void> {
   try {
     logger.info({
-      message: `[REQ] [${request.method}]: ${request.originalUrl}`,
+      message: `traceID=${Date.now()}`,
       labels: {
         context: 'route-level-middleware',
-        method: request.method,
-        url: request.url,
-        body: JSON.stringify(request.body),
-        params: JSON.stringify(request.params),
-        query: JSON.stringify(request.query),
-        headers: JSON.stringify(request.headers),
-        hostname: request.hostname,
-        ip: request.ip,
       },
     });
 
