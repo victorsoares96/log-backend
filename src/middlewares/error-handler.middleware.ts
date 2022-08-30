@@ -9,16 +9,33 @@ export default function errorHandler(
   _: NextFunction,
 ): Response {
   if (error instanceof AppError) {
+    logger.error({
+      message: error.message,
+      labels: {
+        context: 'error-handler-middleware',
+        errorName: error.name,
+        errorStatus: error.statusCode,
+        errorStack: error.stack,
+      },
+    });
     return response.status(error.statusCode).json({
       status: 'error',
       message: error.message,
     });
   }
 
-  logger.error(error);
+  logger.error({
+    message: error.message,
+    labels: {
+      context: 'error-handler-middleware',
+      errorName: error.name,
+      errorStatus: 500,
+      errorStack: error.stack,
+    },
+  });
 
   return response.status(500).json({
     status: 'error',
-    message: 'Internal Server Error',
+    message: error.message,
   });
 }

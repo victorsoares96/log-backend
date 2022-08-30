@@ -6,6 +6,7 @@ import usersRouter from './routes/users.routes';
 import { connectToDatabase } from './database';
 import errorHandler from './middlewares/error-handler.middleware';
 import logger from './utils/log.util';
+import watchRequests from './middlewares/watch-requests.middleware';
 
 class App {
   public express: express.Application;
@@ -17,11 +18,18 @@ class App {
     this.express.use(express.json());
     this.express.use(cors());
     this.handleConnectionToDatabase();
+
+    // ! This order is important.
+    this.routeLevelMiddlewares();
     this.routes();
-    this.middlewares();
+    this.errorHandlerMiddlewares();
   }
 
-  private middlewares(): void {
+  private routeLevelMiddlewares(): void {
+    this.express.use(watchRequests);
+  }
+
+  private errorHandlerMiddlewares(): void {
     this.express.use(errorHandler);
   }
 

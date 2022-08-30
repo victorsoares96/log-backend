@@ -30,7 +30,7 @@ const logger = createLogger({
       handleExceptions: true,
       handleRejections: true,
       // basicAuth: 'admin:admin',
-      labels: { job: projectName },
+      labels: { project: projectName, environment: process.env.NODE_ENV },
       onConnectionError: (err) => {
         console.log(err);
       },
