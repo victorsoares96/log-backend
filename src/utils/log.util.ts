@@ -1,5 +1,4 @@
 import winston, { createLogger, format } from 'winston';
-import LokiTransport from 'winston-loki';
 import { name } from '../../package.json';
 
 const projectName = name;
@@ -23,17 +22,6 @@ const logger = createLogger({
           }`;
         }),
       ),
-    }),
-    new LokiTransport({
-      host: process.env.LOKI_HOST as string,
-      json: true,
-      handleExceptions: true,
-      handleRejections: true,
-      // basicAuth: 'admin:admin',
-      labels: { project: projectName, environment: process.env.NODE_ENV },
-      onConnectionError: (err) => {
-        console.log(err);
-      },
     }),
     new winston.transports.File({
       filename: 'logs/error.log',

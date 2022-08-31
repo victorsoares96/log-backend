@@ -9,7 +9,7 @@ export default async function watchRequests(
 ): Promise<void> {
   try {
     logger.info({
-      message: `traceID=${Date.now()}`,
+      message: `i'm see you!`,
       labels: {
         context: 'route-level-middleware',
       },

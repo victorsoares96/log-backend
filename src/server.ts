@@ -1,3 +1,5 @@
+import './utils/tracer.util';
+
 import 'dotenv/config';
 import 'express-async-errors';
 import express from 'express';
